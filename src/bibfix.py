@@ -27,6 +27,7 @@ def main():
     for file in glob.glob(input_folder + '\\*.bib'):
         bibtex_file = BibTexFile(file)
         for name, entry in bibtex_file.entries_dict.items():
+            name = name.lower()
             if name in conflicts:
                 conflicts[name].append(entry)
             elif name in overall_dict:
@@ -39,7 +40,7 @@ def main():
             else:
                 overall_dict[name] = entry
     os.makedirs(output_folder, exist_ok=True)
-    print(f'Found {len(conflicts)} conflicted names')
+    print(f'Found {len(conflicts)} conflicted names: {", ".join(conflicts.keys())}')
     with open(f'{output_folder}{os.sep}no_conflict_result.bib', 'w') as f:
         for entry in overall_dict.values():
             f.write(f'{entry.to_latex()}\n')
