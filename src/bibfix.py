@@ -24,7 +24,7 @@ def main():
     output_folder = args.output_folder
     overall_dict: Dict[str, BibTexEntry] = {}
     conflicts: Dict[str, List[BibTexEntry]] = defaultdict(list)
-    for file in glob.glob(input_folder + '\\*.bib'):
+    for file in glob.glob(input_folder + os.sep + '*.bib'):
         bibtex_file = BibTexFile(file)
         for name, entry in bibtex_file.entries_dict.items():
             name = name.lower()
